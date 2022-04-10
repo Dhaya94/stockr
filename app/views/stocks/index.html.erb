@@ -1,0 +1,8 @@
+<h1>All Stocks</h1>
+
+<% @stocks.each do |stock| %>
+    <h2><%= stock.symbol %></h2>
+    <p><%= stock.name %></p>
+    <p><%= stock.latest_price %></p>
+    <%= link_to image_tag(stock.icon, :class => 'icon'), stock %>
+<% end %>

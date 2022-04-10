@@ -1,0 +1,5 @@
+<h1>All Watchlists</h1>
+
+<% @watchlists.each do |watchlist| %>
+    <p>Name: <%= link_to watchlist.name, watchlist %></p>
+<% end %>

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_10_070817) do
+ActiveRecord::Schema.define(version: 2022_04_10_144553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "stocks", force: :cascade do |t|
+    t.text "symbol"
+    t.text "name"
+    t.float "latest_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "icon"
+  end
+
+  create_table "stocks_watchlists", force: :cascade do |t|
+    t.integer "stock_id"
+    t.integer "watchlist_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.text "first_name"
@@ -23,6 +37,13 @@ ActiveRecord::Schema.define(version: 2022_04_10_070817) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.boolean "admin", default: false
+  end
+
+  create_table "watchlists", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
 end

@@ -2,7 +2,16 @@
 
 <% if @current_user.present?  %>
     <h2>Welcome <%= @current_user.first_name %> ! </h2>
+
+    <% @stocks.each do |stock| %>
+    <h2><%= stock.symbol %></h2>
+    <p><%= stock.name %></p>
+    <p><%= stock.latest_price %></p>
+    <%= link_to image_tag(stock.icon, :class => 'icon'), stock %>
+    <% end %>
 <% end  %>
+
+
 
 
 

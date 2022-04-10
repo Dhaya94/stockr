@@ -1,0 +1,6 @@
+<h1><%= @watchlist.name %></h1>
+
+<div class="controls">
+    <%= link_to 'Edit watchlist', edit_watchlist_path(@watchlist) %>
+    <%= link_to 'Delete watchlist', @watchlist, :method => 'delete', :data => { :confirm => 'Are you sure?' } %>
+</div>
