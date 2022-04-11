@@ -2,4 +2,8 @@
 
 <% @watchlists.each do |watchlist| %>
     <p>Name: <%= link_to watchlist.name, watchlist %></p>
+          
+    <% watchlist.stocks.each do |stock| %>
+        <%= stock.symbol %>
+    <% end %>
 <% end %>

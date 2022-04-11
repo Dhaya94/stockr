@@ -18,3 +18,5 @@ s1 = Stock.create :symbol => "GOOG", :name => "Alphabet Inc ", :latest_price => 
 s2 = Stock.create :symbol => "TSLA", :name => "Tesla Inc ", :latest_price => 1025.49, :icon => 'https://logo.clearbit.com/tesla.com'
 s3 = Stock.create :symbol => "SHOP", :name => "Shopify Inc ", :latest_price => 603.18, :icon => 'https://logo.clearbit.com/shopify.com'
 puts "#{ Stock.count } stocks"
+
+# Associations
