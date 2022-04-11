@@ -52,6 +52,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'yahoo-finance', require: 'yahoo_finance'
+gem 'yahoo-finance'
 
 gem "stock_quote"
