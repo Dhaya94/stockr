@@ -1,7 +1,7 @@
 Rails.application.routes.draw do      
-  root :to => 'pages#home'
+  root :to => 'pages#home' 
   resources:users, :only => [:new, :create, :index]
-  resources:stocks, :only => [:index, :show]
+  resources:stocks, :only => [:index, :show, :create]
   resources:watchlists
 
   get '/login' => 'session#new'

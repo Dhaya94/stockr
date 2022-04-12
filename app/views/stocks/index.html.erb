@@ -1,8 +1,14 @@
 <h1>All Stocks</h1>
 
-<% @stocks.each do |stock| %>
-    <h2><%= stock.symbol %></h2>
-    <p><%= stock.name %></p>
-    <p><%= stock.latest_price %></p>
-    <%= link_to image_tag(stock.icon, :class => 'icon'), stock %>
+<% query = BasicYahooFinance::Query.new  %>    
+   
+<% @stocks.each do |stock|%>
+    <h2> <%= stock.symbol %> </h2>
+    <% info = query.quotes(stock.symbol)%>       
+    <p> <%= info[stock.symbol]['displayName'] %> </p>
+    <p><%= info[stock.symbol]['regularMarketPrice'] %></p>      
+    <%= link_to image_tag("https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{stock.symbol.downcase}.png", :class => 'icon'), stock %>       
 <% end %>
+
+
+ 

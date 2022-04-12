@@ -20,6 +20,11 @@
         <%= link_to "All watchlists", watchlists_path%>
         <%= link_to "Create watchlist", new_watchlist_path%> |
         <%= link_to "Sign out", login_path, :method => 'delete' %>
+        <%= form_tag stocks_path do %>
+          <%= text_field_tag :symbol %>
+          <%= submit_tag "Search" %>
+        <% end %>
+
       <% else %>
         <%= link_to "Sign in", login_path %>
         <%= link_to "Sign up", new_user_path %>
