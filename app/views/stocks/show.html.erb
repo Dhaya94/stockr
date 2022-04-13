@@ -7,4 +7,9 @@
 <p><%= info[@stock.symbol]['regularMarketPrice'] %></p>      
 <%= image_tag "https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{@stock.symbol.downcase}.png", :class => 'icon' %>       
 
-
+<%=form_for @stock do |f|%>
+    <%=f.select "watchlist_ids", @watchlists.map{|w|[w.name, w.id]}%>
+    <%=f.hidden_field :symbol, :value=>@stock["symbol"] %>       
+    <%=f.hidden_field :user_id, :value=>@current_user.id%>    
+    <%=f.submit "Add to watchlist" %>
+<%end%>

@@ -8,6 +8,7 @@ class StocksController < ApplicationController
   end
 
   def show
+    @watchlists = @current_user.watchlists  
     @stock = Stock.find params[:id]
   end
 
@@ -23,7 +24,36 @@ class StocksController < ApplicationController
         stock = Stock.create :symbol => input_symbol
         redirect_to stock
       end
+    else
+      redirect_to stocks_path
     end   
+  end
+
+  def update  # Updates the stocks in the watchlist
+    stock = Stock.find_by :symbol => params[:stock][:symbol] 
+    watchlist = Watchlist.find params[:stock][:watchlist_ids]
+    stocks_arr = []
+    watchlist.stocks.each do |w|
+      stocks_arr << w.symbol
+    end
+    if stocks_arr.exclude?(stock.symbol) 
+      watchlist.stocks << stock    
+    end    
+    redirect_to stock    
+  end
+
+  def destroy  # Deletes the stocks in the watchlist
+    watchlist = Watchlist.find params[:watchlist][:id]
+    stock_id = params[:id].to_i
+    
+    watchlist.stocks.each do |s|
+      if (s.id == stock_id)
+      s.destroy
+      s.save
+      end
+    end
+    watchlist.save   
+    redirect_to watchlist
   end
 
 end

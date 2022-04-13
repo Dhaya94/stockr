@@ -39,3 +39,4 @@ class WatchlistsController < ApplicationController
     params.require(:watchlist).permit(:name)
   end
 end
+
