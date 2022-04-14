@@ -14,9 +14,9 @@ u1 = User.create :first_name => "Harry", :last_name => "Pod", :email => 'harry@g
 puts "#{ User.count } users"
 
 Stock.destroy_all
-s1 = Stock.create :symbol => "GOOG", :name => "Alphabet Inc ", :latest_price => 2680.21, :icon => 'https://logo.clearbit.com/google.com'
-s2 = Stock.create :symbol => "TSLA", :name => "Tesla Inc ", :latest_price => 1025.49, :icon => 'https://logo.clearbit.com/tesla.com'
-s3 = Stock.create :symbol => "SHOP", :name => "Shopify Inc ", :latest_price => 603.18, :icon => 'https://logo.clearbit.com/shopify.com'
+s1 = Stock.create :symbol => "GOOG"
+s2 = Stock.create :symbol => "TSLA" 
+s3 = Stock.create :symbol => "SHOP" 
 puts "#{ Stock.count } stocks"
 
 # Associations
