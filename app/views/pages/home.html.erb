@@ -1,4 +1,5 @@
-<h1>Stockr</h1>
+
+
 
 <% if @current_user.present?  %>
     <h2>Welcome <%= @current_user.first_name %> ! </h2>
@@ -6,11 +7,28 @@
     <% query = BasicYahooFinance::Query.new  %>    
    
     <% @featured_stocks.each do |stock|%>
-        <h2> <%= stock.symbol %>  </h2>
-        <% info = query.quotes(stock.symbol)%>       
-        <p> <%= info[stock.symbol]['displayName'] %> </p>
-        <p><%= info[stock.symbol]['regularMarketPrice'] %></p>      
-        <%= link_to image_tag("https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{stock.symbol.downcase}.png", :class => 'icon'), stock %>       
+        <div class="card" style="width: 12rem;">
+            <%= link_to image_tag("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png", :class => 'stock-icon'), stock %>  
+            <p> <%= stock.symbol %>  </p>
+            <% info = query.quotes(stock.symbol)%>       
+            <p> <%= info[stock.symbol]['displayName'] %> </p>
+            <p><%= info[stock.symbol]['regularMarketPrice'] %></p>                   
+        </div>
     <% end %>
-  
+
+    <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    
+    <% news_info =  News.new("#{$news_api_key}") %>
+    <% all_news = news_info.get_top_headlines(category: "business", language: "en")%>
+    <% news = all_news.first(10) %>
+    <% news.each do |n| %>
+        <h2> <%= link_to n.title, n.url, target: '_blank'  %> </h2>
+         <%= image_tag(n.urlToImage || "https://www.newsanyway.com/wp-content/uploads/2022/03/In-the-news-4-10-March-2022.jpg", :class => 'news-feature') %>
+        <p> <%= n.description %> </p>
+    <% end %>
+   
 <% end  %>

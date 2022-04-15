@@ -1,8 +1,10 @@
 class PagesController < ApplicationController
   before_action :check_for_login
+  require_relative '../.news_api_key.rb'
+  
   def home
     
-    stocks_list = ['FB', 'NVDA', 'AMD', 'SMH', 'SHOP','ASML','GOOG', 'MSFT']
+    stocks_list = ['FB', 'NVDA', 'AMD', 'SHOP','GOOG', 'MSFT', 'AMZN', 'TSLA', 'AAPL', 'BA']
    
     @stocks_db = Stock.all
     @stocks_db_symbols = []
