@@ -40,6 +40,7 @@ gem 'httparty'
 gem 'figaro'
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'dotenv-rails'
 
 
 group :development, :test do

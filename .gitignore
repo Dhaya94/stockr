@@ -26,4 +26,3 @@
 # Ignore application configuration
 /config/application.yml
 
-.news_api_key.rb

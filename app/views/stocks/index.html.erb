@@ -6,7 +6,7 @@
     <h2> <%= stock.symbol %> </h2>
     <% info = query.quotes(stock.symbol)%>       
     <p> <%= info[stock.symbol]['displayName'] %> </p>
-    <p><%= info[stock.symbol]['regularMarketPrice'] %></p>      
+    <p><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></p>      
     <%= link_to image_tag("https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{stock.symbol.downcase}.png", :class => 'icon'), stock %>       
 <% end %>
 

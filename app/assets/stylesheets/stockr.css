@@ -14,14 +14,92 @@ body {
 h2 {
   margin-top: 0.5em;
   font-family: "Nunito Sans", sans-serif;
+  font-size: 1.75em;
 }
 
-.stock-icon {
-  margin: 0.5em 0 0 0.5em;
+.view-all {
+  margin-left: 62.5em;
+}
+
+.stock-wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 78rem;
+}
+
+.stock-card {
+  margin-top: 0.75em;
+  width: 12.5rem;
+  background-color: #fcf2eb;
+  border-radius: 5%;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px;
+}
+.top p {
+  margin: 0;
+  text-align: center;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stock-icon-card {
   border-radius: 50%;
-  width: 30%;
+  width: 60px;
 }
 
-.symbol-text {
-  float: right;
+.symbol-text-card {
+  font-size: 1.5em;
+}
+
+.name-card {
+  text-align: center;
+  font-size: 0.75em;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+@media (max-width: 1450px) {
+  .stock-wrapper {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 66rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .stock-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 53rem;
+  }
+
+  .view-all {
+    margin: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .stock-wrapper {
+    display: block;
+  }
+
+  .stock-card {
+    margin: 1em auto;
+    width: 15em;
+  }
+
+  .view-all {
+    margin: 0;
+  }
 }
