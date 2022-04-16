@@ -1,11 +1,26 @@
 
+<%  def remote_file_exists?(url) %>
+    <% url = URI.parse(url) %>
+    <% http = Net::HTTP.new(url.host, url.port) %>
+    <% http.use_ssl = (url.scheme == "https") %>
+
+    <% http.start do |http| %>
+        <% return http.head(url.request_uri)['Content-Type'].start_with? 'image' %>
+    <% end %>
+<% end %>
+
+
 <% query = BasicYahooFinance::Query.new  %>      
 
 <h1> <%= @stock.symbol %>  </h1>
 <% info = query.quotes(@stock.symbol)%>       
 <p> <%= info[@stock.symbol]['displayName'] %> </p>
 <p><%= number_to_currency info[@stock.symbol]['regularMarketPrice'] %></p>      
-<%= image_tag("https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{@stock.symbol.downcase}.png" || "https://i.imgur.com/4VWBwH5.png", :class => 'icon') %>       
+<% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png") %>
+    <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png"), :class => '') %>  
+<% else %>
+    <%= image_tag(("https://i.imgur.com/u2ZNmiA.png/150x150"), :class => 'show-icon')%>  
+<% end %>
 
 <%=form_for @stock do |f|%>
     <%=f.select "watchlist_ids", @watchlists.map{|w|[w.name, w.id]}%>

@@ -1,10 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito+Sans:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Nunito+Sans:wght@600&display=swap");
 
 label {
   display: block;
-}
-.news-feature {
-  width: 200px;
 }
 
 body {
@@ -69,6 +66,36 @@ h2 {
 
 .red {
   color: red;
+}
+
+.news-wrapper-home {
+  margin-top: 1em auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 78rem;
+}
+
+.news-card-home {
+  font-family: "Lato", sans-serif;
+  display: inline-block;
+  margin-top: 0.75em;
+  width: 12.5rem;
+}
+
+.news-title-home {
+  font-size: 0.9em;
+}
+
+.news-desc-home {
+  font-size: 0.75em;
+}
+
+.second-level-header {
+  margin-top: 2em;
+}
+
+.show-icon {
+  width: 150px;
 }
 
 @media (max-width: 1450px) {

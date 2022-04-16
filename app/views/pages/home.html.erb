@@ -4,7 +4,7 @@
     <h2>Welcome <%= @current_user.first_name %>, </h2>
 
     <span>Trending stocks</span>
-    <%= link_to "View All", stocks_path, :class => 'btn btn-outline-dark view-all' %>
+    <%= link_to "View more", stocks_path, :class => 'btn btn-outline-dark view-all' %>
 
     <% query = BasicYahooFinance::Query.new  %>    
      
@@ -20,10 +20,7 @@
                 <p class="symbol-text-card"> <%= stock.symbol %></p>
                 <p class="name-card"> <%= info[stock.symbol]['displayName'] %></p>
               </div>            
-            </div>
-
- 
-            
+            </div>            
             <div class="card-bottom">
                 <span><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></span>   
                  <% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>
@@ -36,6 +33,8 @@
         </div>
         <% end %>  
     </div>
+
+    
  
     
 <% end  %>
