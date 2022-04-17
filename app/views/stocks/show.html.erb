@@ -10,21 +10,63 @@
 <% end %>
 
 
-<% query = BasicYahooFinance::Query.new  %>      
+<% query = BasicYahooFinance::Query.new  %>   
+<% info = query.quotes(@stock.symbol)%>      
 
-<h1> <%= @stock.symbol %>  </h1>
-<% info = query.quotes(@stock.symbol)%>       
-<p> <%= info[@stock.symbol]['displayName'] %> </p>
-<p><%= number_to_currency info[@stock.symbol]['regularMarketPrice'] %></p>      
-<% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png") %>
-    <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png"), :class => '') %>  
-<% else %>
-    <%= image_tag(("https://i.imgur.com/u2ZNmiA.png/150x150"), :class => 'show-icon')%>  
-<% end %>
+<div class="container stock-show-container">
+    <div class="stock-card-show">
+        <div class="top">
+            <div class="card-top">      
+                <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png") %>
+                    <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{@stock.symbol.downcase}/150x150.png"), :class => 'stock-show-icon') %>  
+                <% else %>
+                    <%= image_tag(("https://i.imgur.com/WfkBi7F.jpg"), :class => 'stock-show-icon')%>  
+                <% end %>
+            </div> 
+            <div class="card-top">
+                <p class="stock-symbol-show"> <%= @stock.symbol %>  </p>                 
+                <p class="stock-name-show"> <%= info[@stock.symbol]['shortName'] %> </p>
+                <p class="stock-price-show"><%= number_to_currency info[@stock.symbol]['regularMarketPrice'] %></p>    
+            </div> 
+        </div>   
+    </div>
+    
+    <div class="stock-info-show">
+        <p class="stock-info-text">Change</p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_currency info[@stock.symbol]['regularMarketChange'] %> </p>
+        <p class="stock-info-text">Change %</p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_percentage info[@stock.symbol]['regularMarketChangePercent'] %> </p>
+        <p class="stock-info-text"> High </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_currency info[@stock.symbol]['regularMarketDayHigh'] %> </p>
+        <p class="stock-info-text"> Low </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_currency info[@stock.symbol]['regularMarketDayLow'] %> </p>
+        <p class="stock-info-text"> 52W H </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_currency info[@stock.symbol]['fiftyTwoWeekHigh'] %> </p>
+        <p class="stock-info-text"> 52W L </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_currency info[@stock.symbol]['fiftyTwoWeekLow'] %> </p>
+        <p class="stock-info-text"> Mkt Cap </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_human info[@stock.symbol]['marketCap'] %> </p>
+        <p class="stock-info-text"> P/E Ratio </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_human info[@stock.symbol]['forwardPE'] %> </p>
+        <p class="stock-info-text"> EPS </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_human info[@stock.symbol]['epsCurrentYear'] %> </p>    
+        <p class="stock-info-text"> Div. Yield </p>
+        <p class="stock-info-text stock-info-value"> <%= number_to_percentage info[@stock.symbol]['trailingAnnualDividendYield'] %> </p>
+    </div>
+        
+    <div class="stock-watchlist">
+        <%=form_for @stock do |f|%>
+            <%=f.select "watchlist_ids", @watchlists.map{|w|[w.name, w.id]}%>
+            <%=f.hidden_field :symbol, :value=>@stock["symbol"] %>       
+            <%=f.hidden_field :user_id, :value=>@current_user.id%>    
+            <%=f.submit "Add to watchlist", :class => 'add-to-watchlist-btn' %>
+        <%end%>
+    </div>       
+</div>
 
-<%=form_for @stock do |f|%>
-    <%=f.select "watchlist_ids", @watchlists.map{|w|[w.name, w.id]}%>
-    <%=f.hidden_field :symbol, :value=>@stock["symbol"] %>       
-    <%=f.hidden_field :user_id, :value=>@current_user.id%>    
-    <%=f.submit "Add to watchlist" %>
-<%end%>
+
+
+                                                 
+        
+                        
+                        

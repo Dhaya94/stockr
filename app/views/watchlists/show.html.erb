@@ -1,25 +1,88 @@
-<h1><%= @watchlist.name %></h1>
+<%  def remote_file_exists?(url) %>
+    <% url = URI.parse(url) %>
+    <% http = Net::HTTP.new(url.host, url.port) %>
+    <% http.use_ssl = (url.scheme == "https") %>
 
-<% query = BasicYahooFinance::Query.new  %>  
-
- <% @watchlist.stocks.each do |stock| %>
-    <h1> <%= stock.symbol %> </h1> 
-    <% info = query.quotes(stock.symbol)%>
-    <p> <%= info[stock.symbol]['displayName'] %> </p>
-    <p><%= info[stock.symbol]['regularMarketPrice'] %></p> 
-    <%= image_tag "https://d3an3cesqmrf1x.cloudfront.net/images/symbols/#{stock.symbol.downcase}.png", :class => 'icon' %> 
-
-    <%=form_for @watchlist, method: :delete, url:"/stocks/#{stock.id}" do |f|%>        
-        <%=f.hidden_field :symbol, :value=>stock["symbol"] %>  
-        <%=f.hidden_field :id, :value=>@watchlist.id%>      
-        <%=f.hidden_field :user_id, :value=>@current_user.id%>    
-        <%=f.submit "Delete" %>
-    <%end%>
-  
-   
+    <% http.start do |http| %>
+        <% return http.head(url.request_uri)['Content-Type'].start_with? 'image' %>
+    <% end %>
 <% end %>
 
-<div class="controls">
-    <%= link_to 'Edit watchlist', edit_watchlist_path(@watchlist) %>
-    <%= link_to 'Delete watchlist', @watchlist, :method => 'delete', :data => { :confirm => 'Are you sure?' } %>
+<div class="watchlist-display-div">
+    <span class="watchlist-index-header"><%= @watchlist.name %></span>
+
+    <%= link_to 'Update', edit_watchlist_path(@watchlist), :class => "btn watchlist-control-btn control-update-btn" %>
+    <%= link_to 'Delete', @watchlist, :method => 'delete', :data => { :confirm => 'Are you sure?' }, :class => "btn control-delete-btn" %>
+
+    <div class="row stock-show-watchlist watchlist-stocks-header">
+        <div class="watchlist-headers col hidden">Icon</div>
+        <div class="watchlist-headers col">Ticker</div>
+        <div class="watchlist-headers col-2">Name</div>
+        <div class="watchlist-headers col">Change</div>
+        <div class="watchlist-headers col">Change %</div>        
+        <div class="watchlist-headers col">52W L</div>
+        <div class="watchlist-headers col">52W H</div>
+        <div class="watchlist-headers col">Buy</div>
+        <div class="watchlist-headers col hidden">Delete</div>
+    </div>
+
+
+    <% query = BasicYahooFinance::Query.new  %>  
+
+   
+        <% @watchlist.stocks.each do |stock| %>
+         <div class="row stock-show-watchlist">
+            <% info = query.quotes(stock.symbol)%>
+            <div class="col">
+                <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
+                    <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'watchlist-index-stock-icon') %>  
+                <% else %>
+                    <%= image_tag(("https://i.imgur.com/WfkBi7F.jpg"), :class => 'watchlist-index-stock-icon')%>  
+                <% end %> 
+            </div>
+            <div class="col">
+                <p class="stock-info-in-watchlist"> <%= stock.symbol %>
+            </div>
+            <div class="col-2">
+                <p class="stock-info-in-watchlist"><%= info[stock.symbol]['displayName'] %></p>
+            </div>
+            <div class="col"> 
+                <% change = info[stock.symbol]['regularMarketChange'] %>
+                <% if change > 0 %>
+                    <p class="stock-info-in-watchlist green"><%= number_to_currency change %></p>
+                <% else %>
+                    <p class="stock-info-in-watchlist red"><%= number_to_currency change %></p>
+                <% end %>               
+            </div>
+            <div class="col">
+                <% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>
+                <% if change_percent > 0 %>
+                    <p class="stock-info-in-watchlist green"><%= number_to_percentage change_percent %></p>
+                <% else %>
+                    <p class="stock-info-in-watchlist red"><%= number_to_percentage change_percent %></p>
+                <% end %> 
+            </div>
+            <div class="col">
+                <p class="stock-info-in-watchlist"><%= number_to_currency info[stock.symbol]['fiftyTwoWeekLow'] %> </p>
+            </div>
+            <div class="col">
+                <p class="stock-info-in-watchlist"><%= number_to_currency info[stock.symbol]['fiftyTwoWeekHigh'] %> </p>
+            </div>
+            <div class="col">
+                <p class="stock-info-in-watchlist"><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %> </p>
+            </div>
+            <div class="col">                
+                <%=form_for @watchlist, method: :delete, url:"/stocks/#{stock.id}" do |f|%>        
+                    <%=f.hidden_field :symbol, :value=>stock["symbol"] %>  
+                    <%=f.hidden_field :id, :value=>@watchlist.id%>      
+                    <%=f.hidden_field :user_id, :value=>@current_user.id%>    
+                    <%=f.submit "X", :class => "stock-del-watchlist-btn btn btn-outline-danger" %>
+                <%end%>  
+            </div>
+    </div>
+        <% end %>   
+   
 </div>
+
+
+   

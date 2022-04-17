@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Nunito+Sans:wght@600&display=swap");
-
-label {
-  display: block;
-}
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;600;700&family=Nunito+Sans:wght@600&display=swap");
 
 body {
   font-family: "Montserrat", sans-serif;
+}
+
+.authentication-btn {
+  background-color: #e3f2fd;
 }
 
 h2 {
@@ -94,8 +94,147 @@ h2 {
   margin-top: 2em;
 }
 
-.show-icon {
-  width: 150px;
+.stock-show-icon {
+  width: 100px;
+  border-radius: 10%;
+}
+
+.stock-show-container {
+  margin-top: 2em;
+}
+
+.stock-card-show {
+  width: 17rem;
+}
+
+.stock-symbol-show {
+  font-size: 1.5em;
+}
+
+.stock-name-show {
+  font-size: 1em;
+  color: #e96406;
+}
+
+.stock-price-show {
+  font-size: 1.25em;
+}
+
+.stock-info-show {
+  display: grid;
+  width: 56rem;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.stock-info-text {
+  font-size: 0.9em;
+}
+
+.stock-info-value {
+  color: brown;
+}
+
+.stock-watchlist {
+  padding: 2em 10em;
+}
+
+#stock_watchlist_ids {
+  font-family: "Lato", sans-serif;
+  margin: 0.5em;
+  height: 1.75em;
+}
+
+.add-to-watchlist-btn {
+  background-color: #fcf2eb;
+  border: 1px solid black;
+  border-radius: 5%;
+}
+
+.watchlist-display-div {
+  margin: 2em auto;
+}
+
+.watchlist-index-header {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.75em;
+  line-height: 1.75em;
+}
+
+.add-watclist-btn {
+  margin-left: 1em;
+  font-size: 1.5em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.watchlist-index-stock-icon {
+  width: 50px;
+  border-radius: 10%;
+  margin: 5px;
+}
+
+.watchlist-name-index {
+  font-size: 1.05em;
+  text-decoration: none;
+  color: rgb(19, 19, 19);
+  text-align: center;
+}
+
+.watchlist-index-wrapper {
+  margin-top: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 78rem;
+}
+
+.watchlist-card {
+  margin-top: 0.75em;
+  margin-bottom: 1em;
+  display: inline-block;
+  width: 14rem;
+  background-color: #feeee3;
+  border-radius: 5%;
+  padding: 1em;
+}
+
+.stock-show-watchlist {
+  width: 75em;
+}
+
+.watchlist-stocks-header {
+  margin: 1.5em 0;
+  font-weight: 700;
+}
+
+.watchlist-headers {
+  padding-left: 0;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.stock-info-in-watchlist {
+  margin-top: 1em;
+}
+
+.watchlist-control-btn {
+  margin: 0 1em;
+}
+
+.stock-del-watchlist-btn {
+  margin-top: 0.35em;
+  border: none;
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.control-update-btn {
+  background-color: rgba(181, 202, 148, 0.934);
+}
+
+.control-delete-btn {
+  background-color: rgb(219, 157, 157);
 }
 
 @media (max-width: 1450px) {
@@ -128,5 +267,17 @@ h2 {
 
   .view-all {
     margin: 0;
+  }
+
+  .stock-info-show {
+    font-size: 1.25em;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .stock-info-show {
+    font-size: 1.5em;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
