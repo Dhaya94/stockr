@@ -34,7 +34,21 @@
         <% end %>  
     </div>
 
-    
- 
+    <p class="second-level-header">Financial news</p>
+    <div class="news-wrapper-home">
+        
+        <% news_info =  News.new(ENV["NEWS_API_KEY"]) %>
+        <% all_news = news_info.get_top_headlines(category: "business", language: "en")%>
+        <% news = all_news.first(12) %>
+        <% news.each do |n| %>
+        <div class="news-card-home" >
+            <h5 class="card-title news-title-home"> <%= link_to truncate(n.title, :length => 50), n.url, target: '_blank' %> </h5>
+            <%= image_tag(n.urlToImage || "https://www.newsanyway.com/wp-content/uploads/2022/03/In-the-news-4-10-March-2022.jpg", :class => 'card-img-top') %>
+            <div class="card-body">
+                <p class="card-title news-desc-home"> <%= truncate(n.description, :length => 100) %> </p>
+            </div>
+        </div> 
+        <% end %>
+    </div>
     
 <% end  %>

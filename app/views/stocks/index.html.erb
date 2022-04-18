@@ -14,46 +14,15 @@
 
 <p class="second-level-header">Top Gainers</p>
    
-    <div class="stock-wrapper">
-    <% @stocks.each do |stock|%>
-    <% info = query.quotes(stock.symbol)%>   
-    <% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>     
-        <% if change_percent %>
-            <% if change_percent > 3 %>
-                <div class="stock-card">
-                <div class="top">
-                    <div class="card-top">    
-                        <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
-                            <%= link_to image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'stock-icon-card'), stock %>  
-                        <% else %>
-                            <%= link_to image_tag(("https://i.imgur.com/WfkBi7F.jpg"), :class => 'stock-icon-card'), stock %>  
-                        <% end %>
-                    </div>                
-                    <div class="card-top">
-                    <p class="symbol-text-card"> <%= stock.symbol %></p>
-                    <p class="name-card"> <%= info[stock.symbol]['displayName'] %></p>
-                    </div>            
-                </div>            
-                <div class="card-bottom">
-                    <span><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></span>   
-                    <span class="green"><%= number_to_percentage change_percent %></span>  
-                </div>      
-                </div>
-            <% end %>       
-        <% end %>
-    <% end %>  
-    </div>
- 
- <p class="second-level-header">Top Losers</p>
-   
-    <div class="stock-wrapper">
-    <% @stocks.each do |stock|%>
-    <% info = query.quotes(stock.symbol)%>   
-    <% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>     
-        <% if change_percent < -4 %>
+<div class="stock-wrapper">
+<% @stocks.each do |stock|%>
+<% info = query.quotes(stock.symbol)%>   
+<% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>     
+    <% if change_percent %>
+        <% if change_percent > 3 %>
             <div class="stock-card">
             <div class="top">
-                <div class="card-top">                                       
+                <div class="card-top">    
                     <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
                         <%= link_to image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'stock-icon-card'), stock %>  
                     <% else %>
@@ -66,10 +35,59 @@
                 </div>            
             </div>            
             <div class="card-bottom">
-                <span><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></span>  
-                <span class="red"><%= number_to_percentage change_percent %></span>       
+                <span><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></span>   
+                <span class="green"><%= number_to_percentage change_percent %></span>  
             </div>      
             </div>
-        <% end %>        
-    <% end %>  
-    </div>
+        <% end %>       
+    <% end %>
+<% end %>  
+</div>
+ 
+ <p class="second-level-header">Top Losers</p>
+   
+<div class="stock-wrapper">
+<% @stocks.each do |stock|%>
+<% info = query.quotes(stock.symbol)%>   
+<% change_percent = info[stock.symbol]['regularMarketChangePercent'] %>     
+    <% if change_percent < -4 %>
+        <div class="stock-card">
+        <div class="top">
+            <div class="card-top">                                       
+                <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
+                    <%= link_to image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'stock-icon-card'), stock %>  
+                <% else %>
+                    <%= link_to image_tag(("https://i.imgur.com/WfkBi7F.jpg"), :class => 'stock-icon-card'), stock %>  
+                <% end %>
+            </div>                
+            <div class="card-top">
+            <p class="symbol-text-card"> <%= stock.symbol %></p>
+            <p class="name-card"> <%= info[stock.symbol]['displayName'] %></p>
+            </div>            
+        </div>            
+        <div class="card-bottom">
+            <span><%= number_to_currency info[stock.symbol]['regularMarketPrice'] %></span>  
+            <span class="red"><%= number_to_percentage change_percent %></span>       
+        </div>      
+        </div>
+    <% end %>        
+<% end %>  
+</div>
+
+
+<p class="second-level-header">Financial news</p>
+<div class="news-wrapper-home">
+    
+    <% news_info =  News.new(ENV["NEWS_API_KEY"]) %>
+    <% all_news = news_info.get_top_headlines(category: "business", language: "en")%>
+    <% news = all_news.sample(12) %>    
+    <% news.each do |n| %>
+    <div class="news-card-home" >
+        <h5 class="card-title news-title-home"> <%= link_to truncate(n.title, :length => 50), n.url, target: '_blank' %> </h5>
+        <%= image_tag(n.urlToImage || "https://www.newsanyway.com/wp-content/uploads/2022/03/In-the-news-4-10-March-2022.jpg", :class => 'card-img-top') %>
+        <div class="card-body">
+            <p class="card-title news-desc-home"> <%= truncate(n.description, :length => 100) %> </p>
+        </div>
+    </div> 
+    <% end %>
+</div>

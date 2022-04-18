@@ -34,13 +34,14 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'dotenv-rails'
 gem 'basic_yahoo_finance'
 gem 'news-api'
 gem 'httparty'
 gem 'figaro'
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'dotenv-rails'
+
 
 
 group :development, :test do
