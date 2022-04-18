@@ -31,6 +31,8 @@ The stock information is queried from the [BasicYahooFinance gem](https://github
 
 The news information is queried from the [NEWS API gem](https://github.com/olegmikhnovich/News-API-ruby).
 
+The stock icons are fetched from the etoro-cdn, and default icons are used incase a match is not found for the stock symbol.
+
 ## **Features**
 
 1. Home page - Show featured stocks and top business news headlines
@@ -51,3 +53,9 @@ The news information is queried from the [NEWS API gem](https://github.com/olegm
 - Fix UI/ UX issues reported
 - Present some of the stock info in the form of charts to provide visual context to user
 - Improve performance of the project
+
+## **Project preview**
+
+![Home](app/assets/images/home.png)
+![All Watchlists](app/assets/images/all_watchlists.png)
+![Watchlist show](app/assets/images/watchlist_show.png)
