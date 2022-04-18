@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
-  before_action :check_for_login
- 
+  before_action :check_for_login 
   
-  def home
-    
+  def home    
     stocks_list = ['ADBE', 'NVDA', 'NKE', 'SHOP','GOOG', 'MSFT', 'AMZN', 'TSLA', 'AAPL', 'T', 'V', 'PEP', 'IBM', 'CRM', 'HUBS', 'PFE','SBUX','MCD']
    
     @stocks_db = Stock.all

@@ -1,8 +1,7 @@
-<%  def remote_file_exists?(url) %>
+<% def remote_file_exists?(url) %>
     <% url = URI.parse(url) %>
     <% http = Net::HTTP.new(url.host, url.port) %>
     <% http.use_ssl = (url.scheme == "https") %>
-
     <% http.start do |http| %>
         <% return http.head(url.request_uri)['Content-Type'].start_with? 'image' %>
     <% end %>
@@ -26,12 +25,10 @@
         <div class="watchlist-headers col hidden">Delete</div>
     </div>
 
-
     <% query = BasicYahooFinance::Query.new  %>  
-
    
-        <% @watchlist.stocks.each do |stock| %>
-         <div class="row stock-show-watchlist">
+    <% @watchlist.stocks.each do |stock| %>
+        <div class="row stock-show-watchlist">
             <% info = query.quotes(stock.symbol)%>
             <div class="col">
                 <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
@@ -79,10 +76,6 @@
                     <%=f.submit "X", :class => "stock-del-watchlist-btn btn btn-outline-danger" %>
                 <%end%>  
             </div>
-    </div>
-        <% end %>   
-   
+        </div>
+    <% end %>      
 </div>
-
-
-   

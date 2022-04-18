@@ -1,8 +1,7 @@
-<%  def remote_file_exists?(url) %>
+<% def remote_file_exists?(url) %>
     <% url = URI.parse(url) %>
     <% http = Net::HTTP.new(url.host, url.port) %>
     <% http.use_ssl = (url.scheme == "https") %>
-
     <% http.start do |http| %>
         <% return http.head(url.request_uri)['Content-Type'].start_with? 'image' %>
     <% end %>
@@ -11,27 +10,19 @@
 
 <div class="watchlist-display-div">
     <span class="watchlist-index-header" >My watchlists</span>
-
     <%= link_to "+", new_watchlist_path, :class => 'btn btn-outline-primary add-watclist-btn'%>
-    <div class="watchlist-index-wrapper">
-   
+    <div class="watchlist-index-wrapper">   
         <% @watchlists.each do |watchlist| %>
-        <div class="watchlist-card">
-        <p class="watchlist-name-index"><%= link_to watchlist.name, watchlist, :class => "watchlist-name-index" %></p>            
-            <% watchlist.stocks.each do |stock| %>   
-                    <%# stock.symbol %>
+            <div class="watchlist-card">
+                <p class="watchlist-name-index"><%= link_to watchlist.name, watchlist, :class => "watchlist-name-index" %></p>            
+                <% watchlist.stocks.each do |stock| %>                      
                     <% if remote_file_exists?("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png") %>
-                         <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'watchlist-index-stock-icon') %>  
+                        <%= image_tag(("https://etoro-cdn.etorostatic.com/market-avatars/#{stock.symbol.downcase}/150x150.png"), :class => 'watchlist-index-stock-icon') %>  
                     <% else %>
                         <%= image_tag(("https://i.imgur.com/WfkBi7F.jpg"), :class => 'watchlist-index-stock-icon')%>  
                     <% end %> 
-            <% end %>
-        </div> 
-        <% end %>
-   
-
+                <% end %>
+            </div> 
+        <% end %>  
     </div> 
-
 </div>
-
-

@@ -38,7 +38,6 @@ gem 'dotenv-rails'
 gem 'basic_yahoo_finance'
 gem 'news-api'
 gem 'httparty'
-gem 'figaro'
 gem 'bootstrap'
 gem 'jquery-rails'
 
