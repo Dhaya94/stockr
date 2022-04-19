@@ -3,8 +3,6 @@ class StocksController < ApplicationController
   require 'uri'
   before_action :check_for_login
 
-  require 'httparty'
-
   def index
     @stocks = Stock.all
   end
